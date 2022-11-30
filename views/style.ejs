@@ -1,0 +1,119 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background: linear-gradient(-45deg, #981262, #ff7253, #CF820E );
+    width: 100%;
+    height: 100vh;
+    font-family: 'poppins',sans-serif;
+    background-size: cover;
+    background-position: auto;
+    background-repeat: no-repeat;
+    
+}
+#form {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius:10px;
+    padding: 60px;
+    width: min-content;
+    align-items: center;
+    color: #2b344b;
+    animation: iniciar 1.6s ease-out;
+    pointer-events:all;
+}
+input{
+    outline: none !important;
+    border: none;
+    border-bottom: 2px solid #CF820E ;
+    position: relative;
+    font-size: 15px;
+    line-height:1.2;
+    display: block;
+    background: transparent;
+    padding:0 5px;
+    color: #CF820E;
+}
+
+#Login{
+color: #CF820E;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+padding: 80px;
+border: solid  rgba(98,12,62,0.0);
+border-radius: 20px;
+background-color: rgba(98,12,62,0.5);
+ color:#CF820E;
+    
+}
+
+#Login2{
+    color: #CF820E;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 80px;
+    border: solid  rgba(98,12,62,0.8);
+    border-radius: 20px;
+    }
+ a{
+    margin-top:10%;
+    width:100%;
+    text-align: center;
+ }
+
+.btn-link{ 
+    text-decoration: none;
+    background: linear-gradient(-45deg, rgba(98,12,62,0.5), #ff7253, #CF820E );
+    color: #CF820E;
+    border: none;
+    width: 100%;
+    height:40px;
+    border: none;
+    font-size: 1.2em;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+}
+.links{
+    text-decoration: none;
+    color:#CF820E;
+}
+.alimentos{
+    font-size: 20px;
+}
+.tempos{
+    font-size: 30px;
+    color:#30222a;
+}
+.legend{
+    font-size: 20px;
+}
+.links:hover{
+    font-size:x-large;
+}
+@keyframes iniciar{
+    0%{
+        top: -20%;
+        opacity: 0;
+        pointer-events: none
+    }
+    100%{
+        top: 50%;
+        opacity: 100%;
+        pointer-events: all;
+    }
+}
+   </style>

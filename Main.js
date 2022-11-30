@@ -1,9 +1,12 @@
-var senha = '123'
-function logar(){
-    var tentative = document.getElementsByClassName("input2").value;
-    if (tentativa == senha)
-      alert("Senha correta, entrando no sistema...");
-     else 
-      alert("Senha incorreta, tente novamente");
-    
+function criarIdosoDieta(){
+  document.querySelector('#app').innerHTML = 
+  //adciona idoso ao pogcuid
+  `
+
+
+`
+}
+function dieta(){
+  var input = document.createElement('nome-idoso')
+ let nomeIdoso = document.getElementById('nome-idoso')
 }
