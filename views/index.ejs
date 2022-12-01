@@ -5,32 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
-    <script src="Main.js"></script>
+    <script src="../Main.js "></script>
     <title>DILO</title>
 </head>
 <body>
-   <div class="form">
-    <form action="" method="GET">
-        <fieldset id="Login">
+    <div id="form">
+        <form action="">
             <img src="https://cdn.discordapp.com/attachments/846124316252569602/1043594834411261993/LogoSample_ByTailorBrands-removebg-preview.png">
-            <p>Usuario</p>
-            <input type="text" class="input1" placeholder="Digite seu usuario ">
-            <p>Senha</p>
-            <input type="password" name="password" class="input2" placeholder="Digite sua senha">
-            <br>
-            <br>
-            <input type="submit" onclick="logar(); return false">
-            <br>
-            <br>
-            <a class="btn-link" href="/pagcuid">Entrar Cuidador</a>
-            <br>
-            <br>
-            <br>
-            <a class="btn-link" href="/pagmed">Entrar Medico</a>
-        </fieldset>
-    </form>
-   </div>
-<%- include('style'); %>
-   
+            <h2 class="title">Fazer Login</h2>
+            <Label for="nome">Nome</Label>
+            <div class="input">
+                <i class="fa-solid fa-scroll-old"></i>
+                <input type="text" id="nome" for="username" name="nome" Placeholder="Digite seu usuario" required>
+            </div>
+            <label for="">Senha</label>
+            <div class="input">
+                <i class="fa-solid fa-scroll-old"></i>
+                <input type="password" id="senha" name="senha" Placeholder="insira sua senha" required>
+            </div>
+            
+            <div id="btn">
+                <button type="button" onclick="entrar(); return false">Entrar</button>
+            </div>
+        </form>
+    </div>
+   <%- include('../funcionais/scriptLogin') %>
+    <%- include('../funcionais/styleCadastro'); %>
 </body>
 </html>
