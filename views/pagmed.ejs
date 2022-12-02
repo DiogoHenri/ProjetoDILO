@@ -1,18 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
     <title>DILO</title>
 </head>
+
 <body>
-   <div class="logo">
-    <form action="" method="GET">
-        <%- include('../funcionais/fieldsetMed'); %>
-    </form>
-   </div>
-   <%- include('../funcionais/style'); %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <input onkeyup="filtrar()" type="text" placeholder="Pesquisar..." id="pesquisar" class="form-control">
+                <button type="delete" id="deletar" onclick="Excluir();">Deletar</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" id="btnAdd" type="button" data-bs-toggle="modal"
+                    data-bs-target="#addUsuarioModal">
+                    <i class="bi bi-plus-lg"></i> Adicionar</button>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Observações</th>
+                            <th scope="col">Café da manhã</th>
+                            <th scope="col">Lanche da manhã</th>
+                            <th scope="col">Almoço</th>
+                            <th scope="col">Lanche da tarde</th>
+                            <th scope="col">Janta</th>
+                            <br>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Usuário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="form">
+                    <form action="">
+                        <!-- Cadastro do Idoso -->
+                        <h2 class="title">Cadastrar Idoso</h2>
+                        <Label for="nome">Nome</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="nome" for="username" name="nome" Placeholder="Digite o nome">
+                        </div>
+                        <label for="">Email responsavel</label>
+                        <div class="input">
+                            
+                            <input type="text" id="email" name="email" Placeholder="insira o email do responsavel">
+                        </div>
+                        <label for="">Telefone do responsavel</label>
+                        <div class="input">
+                            
+                            <input type="tel" id="tell" name="tell" Placeholder="insira o Telefone do responsavel">
+                        </div>
+                        <Label for="about">orientações</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="about"name="about" Placeholder="observações do idoso(doenças,alergias)">
+                        </div>
+                        <!-- Criar dieta do Idoso -->
+                        <h2 class="title">Criar dieta</h2>
+                        <!-- Café da Manha-->
+                        <label for="cafeManha">Café da manhã</label>
+                        <div class="input">
+                            
+                            <input type="text" id="cafeManha" name="cafeManha" Placeholder="café da manhã">
+                        </div>
+                        <!--Lanche da manhã-->
+                        <Label for="lancheManha">Lanche da manhã</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="lancheManha"name="lancheManha" Placeholder="Lanhce da manhã">
+                        </div>
+                        <!-- ALmoço -->
+                        <Label for="almoco">Almoço</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="almoco"name="almoco" Placeholder="Almoço">
+                        </div>
+                        <!-- Lanche da tarde -->
+                        <Label for="lancheTarde">Lanche da Tarde</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="lancheTarde"name="lancheTarde" Placeholder="lancheTarde">
+                        </div>
+                        <!-- Janta -->
+                        <Label for="janta">Janta</Label>
+                        <div class="input">
+                            
+                            <input type="text" id="janta"name="janta" Placeholder="Janta">
+                        </div>
+                               
+                        <div id="btn">
+                            <button type="submit">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn-link" href="/">Voltar</a>
+
+    <%- include('../funcionais/styleModal'); %>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        var idoso = [];
+        document.addEventListener("DOMContentLoaded", function (e) {
+
+            document.getElementById('form').addEventListener("submit", function (e) {
+                e.preventDefault();
+                salvarIdoso(e);
+            });
+
+            buscarIdoso();
+        });
+
+        
+        
+        function salvarIdoso(event) {
+            const myFormData = new FormData(event.target);
+            const formDataObj = {};
+            myFormData.forEach((value, key) => (formDataObj[key] = value));
+
+            fetch('https://637ebab95b1cc8d6f9332285.mockapi.io/api/v1/idoso', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formDataObj),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    alert('Salvo com sucesso!');
+                    location.reload();
+                })
+                .catch((error) => {
+                    alert('Erro ao salvar!');
+                });
+
+
+        }
+
+        function Excluir() {
+            fetch('https://637ebab95b1cc8d6f9332285.mockapi.io/api/v1/idoso')
+            let excluir = document.getElementById('deletar').value;
+            usuArray = idoso.splice(u =>
+                u.nome.splice(excluir) ||
+                u.email.splice(excluir) ||
+                u.tell.splice(excluir) ||
+                u.cafeManha.splice(excluir) ||
+                u.lancheManha.splice(excluir) ||
+                u.almoco.splice(excluir) ||
+                u.lancheTarde.splice(excluir) ||
+                u.janta.splice(excluir) ||
+                u.id == excluir);
+            atualizarTabela(usuArray);
+        }
+
+        function buscarIdoso() {
+            fetch('https://637ebab95b1cc8d6f9332285.mockapi.io/api/v1/idoso')
+                .then((response) => response.json()
+                    .then((data) => {
+                        idoso = data;
+                        atualizarTabela(idoso);
+                    })
+                );
+        }
+        function filtrar() {
+            let filtro = document.getElementById('pesquisar').value;
+            usuArray = idoso.filter(u =>
+                u.nome.startsWith(filtro) ||
+                u.email.startsWith(filtro) ||
+                u.tell.startsWith(filtro) ||
+                u.cafeManha.startsWith(filtro) ||
+                u.lancheManha.startsWith(filtro) ||
+                u.almoco.startsWith(filtro) ||
+                u.lancheTarde.startsWith(filtro) ||
+                u.janta.startsWith(filtro) ||
+                u.id == filtro);
+            atualizarTabela(usuArray);
+        }
+        function atualizarTabela(array) {
+            let tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+            array.forEach(ido => {
+                let tr = document.createElement('tr');
+                let tdId = document.createElement('td');
+                tdId.innerHTML = ido.id;
+                let tdNome = document.createElement('td');
+                tdNome.innerHTML = ido.nome;
+                let tdEmail = document.createElement('td');
+                tdEmail.innerHTML = ido.email;
+                let tdTell = document.createElement('td');
+                tdTell.innerHTML = ido.tell;
+                let tdAbout = document.createElement('td');
+                tdAbout.innerHTML = ido.about;
+                let tdCafeManha = document.createElement('td');
+                tdCafeManha.innerHTML = ido.cafeManha;
+                let tdLancheManha = document.createElement('td');
+                tdLancheManha.innerHTML = ido.lancheManha;
+                let tdAlmoco = document.createElement('td');
+                tdAlmoco.innerHTML = ido.almoco;
+                let tdLancheTarde = document.createElement('td');
+                tdLancheTarde.innerHTML = ido.lancheTarde;
+                let tdJanta = document.createElement('td');
+                tdJanta.innerHTML = ido.janta;
+                
+                tr.appendChild(tdId);
+                tr.appendChild(tdNome);
+                tr.appendChild(tdEmail);
+                tr.appendChild(tdTell);
+                tr.appendChild(tdAbout);
+                tr.appendChild(tdCafeManha);
+                tr.appendChild(tdLancheManha);
+                tr.appendChild(tdAlmoco);
+                tr.appendChild(tdLancheTarde);
+                tr.appendChild(tdJanta);
+                tbody.appendChild(tr);
+            });
+        }
+       
+    </script>
 </body>
 </html>
